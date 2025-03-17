@@ -1,5 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   text-align: center;
+}
+.custom-bg-ylw{
+  background-color: #f5eed2;
+}
+#root{
+  background-color: #f5eed2;
+}
+.container {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+.footer {
+  position: relative; 
+  bottom: 0;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
+  background-color: #333; 
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.custom-toast{
+  background-color:#FFC107 !important;
+  color:black !important;
+}
+body, html {
+  background-color: #f5eed2; 
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.custom-heading-blue {
+  color: #f0fc12 !important; 
+}
+.price-clr{
+  color:#f0fc12;
+}
+.add-cart{
+  background-color:#C7FF8E ;
+}
+marquee{
+  color: #C7FF8E;
+}
+.navbar {
+  margin: 0;
+  padding-top: 15px;
+  width: 100%; 
+}
+.list-group-item {
+  white-space: nowrap; /* Prevents text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if text is too long */
+  text-align: center; /* Centers text inside */
+  padding: 10px 15px; /* Ensure uniform padding */
+  font-size: 14px; /* Adjust font size */
+  display: flex; /* Enables better alignment */
+  align-items: center; /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+  height: 40px; /* Set a fixed height */
+}
+
+.list-group-item.active {
+  font-weight: bold;
+  background-color: #28a745 !important; /* Ensures same background for active state */
+  color: white !important;
+}
+
+.cartpage{
+  background-color: #faf7f7 !important;
+}
+.cart-table th {
+  background-color: #36a282;
+  color: white;
+  font-weight: bold;
+}
+.fixed-img {
+  width: 150px !important;
+  height: 150px !important;
+  object-fit: cover;
+}
+
+.cart-buttons .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.floating-cart-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 1000;
+ 
+}
+
+.floating-cart-btn button {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bolder;
+  border-radius: 50px;
+}
+
+.cart-button-container .btn {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #dd22e3;
+  color: white;
+  border-radius: 50px;
+}
+.footer {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
 }
 
 .App-logo {
