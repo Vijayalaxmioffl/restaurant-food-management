@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
-        <Header />  {/* Header appears on all pages */}
+        <Header />  
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<RestaurantMenu />} />

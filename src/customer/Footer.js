@@ -15,7 +15,7 @@ const Footer = () => {
             <p className="mb-1">☎ <a href="tel:+919000990009" className="text-white">+91 90009 90009</a></p>
           </div>
 
-          {/* Center Section - Quick Links & Top Cities */}
+         {/* center */}
           <div className="col-md-4 text-center">
             <h6>Quick Links</h6>
             <div className="d-flex flex-column">
@@ -33,7 +33,7 @@ const Footer = () => {
               <a href="/city/chennai" className="text-white text-decoration-none">Chennai</a> 
             </div>
           </div>
-
+          {/* right */}
           <div className="col-md-4 text-end">
             <h6>Follow Us</h6>
             <div className="d-flex justify-content-end gap-3">

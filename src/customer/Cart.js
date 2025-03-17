@@ -9,7 +9,7 @@ const Cart = () => {
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  const shippingCharge = 50; // Default shipping charge
+  const shippingCharge = 50; 
   const totalItems = cart.length;
   const totalPrice = cart.reduce((total, item) => total + item.price, 0).toFixed(2);
   const finalTotal = (parseFloat(totalPrice) + shippingCharge).toFixed(2); // Adding shipping charge
@@ -91,7 +91,7 @@ const Cart = () => {
         ) : (
           <p>No items in cart</p>
         )}
-        {/* Caution Message */}
+        
         <div className="mt-4 text-center text-dark">
           <p style={{ fontSize: "1rem" }}>
             <small>By proceeding, I accept the T&C and Privacy Policy.</small><br />
