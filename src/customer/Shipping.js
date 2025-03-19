@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Shipping.css"; // Custom CSS for styling
+import "./Shipping.css"; 
 
 export default function Shipping() {
   const navigate = useNavigate();
@@ -50,13 +50,47 @@ export default function Shipping() {
   });
   const states = Object.keys(stateCityMap);
   const [upiId, setUpiId] = useState("");
+  const [gpay, setGpayNum] = useState("");
+  const [phonepeNumber, setPhonepeNumber] = useState("");
+  const [paytmNumber, setPaytmNumber] = useState("");
+
+  const handlePaymentNumberChange = (e, setter) => {
+    const value = e.target.value;
+    if (/^\d{0,10}$/.test(value)) {
+      setter(value);
+    }
+  };  
+
   const handleSubmit = () => {
-    toast("Please check your address before proceeding.", 
-      { position: "top-center", autoClose: 3000 });
-    setTimeout(() => {
-      navigate("/OrderSuccess");
-    }, 3000);
-  };
+    const requiredFields = ["firstName", "lastName", "email", "state", "city", "pincode", "phone", "doorNumber", "streetName", "areaName"];
+   
+    // Check if any required field is empty
+    const isDeliveryValid = requiredFields.every(field => deliveryAddress[field]?.trim() !== "");
+    
+    if (!isDeliveryValid) {
+      toast.error("Please fill in all required fields before proceeding!", { position: "top-center", autoClose: 3000 });
+      return;
+    }
+  
+    // Validate Payment Methods
+  if (paymentMethod === "debit") {
+    const isCardValid = Object.values(cardDetails).every(value => value.trim() !== "");
+    if (!isCardValid) {
+      toast.error("Please fill in all card details!", { position: "top-center", autoClose: 3000 });
+      return;
+    }
+  } else if (paymentMethod === "upi" && !/^[\w.-]+@ok(?:sbi|hdfc|icici|axis|kotak|yesbank|idfc|boi|pnb|unionbank|baroda|canara|indianbank)$/.test(upiId.trim())) {
+    toast.error("Please enter a valid UPI ID (e.g., example@oksbi)!", { position: "top-center", autoClose: 3000 });
+    return;
+  }
+
+  toast.success("Address and Payment details validated successfully!", 
+    { position: "top-center", autoClose: 2000 });
+
+  setTimeout(() => {
+    navigate("/customer/OrderSuccess");
+  }, 2500);
+};
 
   const handleDeliveryChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +103,7 @@ export default function Shipping() {
   return (
     <div className="container py-5">
       <div className="row">
-        {/* Address Details */}
+        
         <div className="col-md-6">
           <div className="p-3 border rounded shadow-sm bg-light">
             <h5>Delivery Address</h5>
@@ -110,7 +144,7 @@ export default function Shipping() {
             <select className="form-control form-control-sm mt-2" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
               <option value="debit">Debit Card</option>
               <option value="upi">UPI</option>
-              <option value="gpay">Google Pay</option>
+              <option value="gpay">GPay</option>
               <option value="paytm">Paytm</option>
               <option value="phonepe">PhonePe</option>
             </select>
@@ -123,8 +157,45 @@ export default function Shipping() {
               </>
             )}
             {paymentMethod === "upi" && (
-              <input className="form-control form-control-sm mt-2" type="text" name="upiId" placeholder="Enter UPI ID" value={upiId} onChange={(e) => setUpiId(e.target.value)} />
+              <input className="form-control form-control-sm mt-2" 
+              type="text" name="upiId"
+               placeholder="Enter UPI ID"
+                value={upiId} 
+                onChange={(e) => setUpiId(e.target.value)} />
             )}
+           {paymentMethod === "gpay" && (
+              <input 
+                className="form-control form-control-sm mt-2" 
+                type="text" 
+                name="gpay" 
+                placeholder="Enter GPay number" 
+                value={gpay} 
+                onChange={(e) => handlePaymentNumberChange(e, setGpayNum)} 
+              />
+            )}
+
+            {paymentMethod === "phonepe" && (
+              <input 
+                className="form-control form-control-sm mt-2" 
+                type="text" 
+                name="phonepe" 
+                placeholder="Enter PhonePe number" 
+                value={phonepeNumber} 
+                onChange={(e) => handlePaymentNumberChange(e, setPhonepeNumber)}  
+              />
+            )}
+
+            {paymentMethod === "paytm" && (
+              <input 
+                className="form-control form-control-sm mt-2" 
+                type="text" 
+                name="paytm" 
+                placeholder="Enter Paytm number" 
+                value={paytmNumber} 
+                onChange={(e) => handlePaymentNumberChange(e, setPaytmNumber)}  
+              />
+            )}
+
                   <button className="btn btn-success mt-3 w-100" onClick={handleSubmit}>Proceed to Payment</button>
 
           </div>

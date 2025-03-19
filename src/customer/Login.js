@@ -1,33 +1,47 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const [isSignup, setIsSignup] = useState(false); // Toggle between login & signup
+  const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  //Checks whether the form is in signup or login mode.
   const handleSubmit = (e) => {
+    //method in JavaScript that prevents the default behavior of an event in this case,
+    //pg refreshing
     e.preventDefault();
 
     if (isSignup) {
       // Sign Up Logic
       const existingUser = JSON.parse(localStorage.getItem("user"));
       if (existingUser && existingUser.email === email) {
-        alert("User already exists! Please log in.");
+        toast.error("User already exists! Please log in.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       } else {
         localStorage.setItem("user", JSON.stringify({ email, password }));
-        alert("Signup successful! Please log in.");
+        toast.success("Signup successful! Please log in.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
         setIsSignup(false); // Switch to login after signup
       }
     } else {
       // Login Logic
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === email && storedUser.password === password) {
+        //Stores "isAuthenticated": "true" in localStorage.Navigates to "/customer/list"
         localStorage.setItem("isAuthenticated", "true");
-        navigate("/");
+        navigate("/customer/list");
       } else {
-        alert("Invalid credentials. Please try again.");
+        toast.error("Invalid credentials. Please try again.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
     }
   };
@@ -60,6 +74,7 @@ const Login = () => {
                 />
               </div>
               <button type="submit" className="btn btn-primary w-100">
+                {/* toggled when the user clicks on the "Don't have an account? Sign Up" or "Already have an account? Login" button */}
                 {isSignup ? "Sign Up" : "Login"}
               </button>
             </form>
@@ -72,6 +87,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

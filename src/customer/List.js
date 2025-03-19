@@ -11,7 +11,7 @@ const List = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");//for searching a keyword by user
 
   useEffect(() => {
     const storedMenu = localStorage.getItem("menuItems");
@@ -24,7 +24,7 @@ const List = () => {
 
   const addToCart = (item) => {
     localStorage.setItem("selectedItem", JSON.stringify(item));
-    navigate(`/menu-details/${item.id}`);
+    navigate(`/customer/menu-details/${item.id}`);
   };
 
   const categories = [
@@ -48,6 +48,7 @@ const List = () => {
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+    localStorage.setItem("searchQuery", query);//updates dynamically abt the search word in LS
     let filtered = menuItems.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );

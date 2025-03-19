@@ -16,7 +16,7 @@ const MenuDetail = () => {
     if (selectedItem) {
       setItem(selectedItem);
     } else {
-      navigate("/"); // Redirect if no item found
+      navigate("/customer/list"); // Redirect if no item found
     }
 
     // Get initial cart count

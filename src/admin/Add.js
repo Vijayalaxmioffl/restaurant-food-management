@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+
 function Add() {
   const navigate = useNavigate();
   const [menuItems, setMenuItems] = useState(() => {
@@ -14,23 +15,34 @@ function Add() {
   useEffect(() => {
     localStorage.setItem("menuItems", JSON.stringify(menuItems));
   }, [menuItems]);
-     const handleAddDish = () => {
-      toast("Item added Successfully.", {
-        position: "top-center",
-        autoClose: 3500,
-        className: "custom-toast",
-      });
-  
-      setTimeout(() => {
-        // navigate("/");
-      }, 3500); // Delay navigation to let the toast be visible
-    };
+
+  const handleAddDish = () => {
+    toast.success("Item added successfully!", {
+      position: "top-center",
+      autoClose: 3500,
+      className: "custom-toast",
+    });
+
+    setTimeout(() => {
+      // navigate("/customer/list");
+    }, 3500); // Delay navigation to let the toast be visible
+  };
+
   const addMenuItem = () => {
-    if (!newItem.name || !newItem.image || !newItem.description || !newItem.price || !newItem.category) return;
+    if (!newItem.name || !newItem.image || !newItem.description || !newItem.price || !newItem.category) {
+      toast.error("Please fill all the fields before adding a dish!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
 
     const priceAsNumber = parseFloat(newItem.price);
     if (isNaN(priceAsNumber)) {
-      alert("Please enter a valid number for price.");
+      toast.error("Please enter a valid number for price.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -39,17 +51,16 @@ function Add() {
       id: Date.now(),
       price: priceAsNumber // Ensure price is stored as a number
     }];
+    
     setMenuItems(updatedMenu);
     setNewItem({ name: "", image: "", description: "", price: "", category: "Starters" });
+
+    setTimeout(handleAddDish, 500); // Delay calling handleAddDish to ensure state updates
   };
-  useEffect(() => {
-    console.log("Saving to localStorage:", menuItems); // Debugging line
-    localStorage.setItem("menuItems", JSON.stringify(menuItems));
-  }, [menuItems]);
 
   return (
     <div className="custom-bg-ylw d-flex flex-column">
-      <div className="container text-light  flex-grow-1">
+      <div className="container text-light flex-grow-1">
         <div className="d-flex justify-content-between align-items-center mt-3">
           <h2 className="fw-bold text-dark pt-5 mx-auto">Add Menu Here</h2>
           <button className="btn btn-success" onClick={() => navigate("/")}>
@@ -60,7 +71,7 @@ function Add() {
           <input className="form-control" type="text" placeholder="Dish Name" value={newItem.name} onChange={(e) => setNewItem({ ...newItem, name: e.target.value })} />
           <input className="form-control mt-2" type="text" placeholder="Image URL" value={newItem.image} onChange={(e) => setNewItem({ ...newItem, image: e.target.value })} />
           <input className="form-control mt-2" type="text" placeholder="Description" value={newItem.description} onChange={(e) => setNewItem({ ...newItem, description: e.target.value })} />
-          <input className="form-control mt-2" type="number" placeholder="Price" value={newItem.price} onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) })} />
+          <input className="form-control mt-2" type="number" placeholder="Price" value={newItem.price} onChange={(e) => setNewItem({ ...newItem, price: e.target.value })} />
 
           {/* Dropdown */}
           <select className="form-control mt-2" value={newItem.category} onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}>
@@ -82,20 +93,18 @@ function Add() {
             <option value="Italian">Italian</option>
           </select>
           <div className="d-flex gap-2 mt-3">
-          <button className="btn btn-success w-100" onClick={() => {  addMenuItem(); 
-             setTimeout(handleAddDish, 500); // Delay calling handleAddDish to ensure state updates
-              }}>Add Dish</button>
-           
-          </div>
-          <button className="btn btn-warning w-100 my-2" onClick={() => navigate("/List")}>
-          Edit/Delete Menu
+            <button className="btn btn-success w-100" onClick={addMenuItem}>
+              Add Dish
             </button>
+          </div>
+          <button className="btn btn-warning w-100 my-2" onClick={() => navigate("/admin/List")}>
+            Edit/Delete Menu
+          </button>
         </div>
       </div>
       <ToastContainer />
     </div>
   );
-
 }
 
 export default Add;

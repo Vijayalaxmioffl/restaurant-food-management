@@ -75,7 +75,7 @@ const Cart = () => {
             <h6 className="mt-1 text-danger">Shipping: ₹{shippingCharge}</h6>
             <h6 className="mt-1 text-dark">Final Total: ₹{finalTotal}</h6>
             <div className="d-flex justify-content-center gap-3 mt-4">
-              <button className="btn btn-success" onClick={() => navigate("/Shipping")}> 
+              <button className="btn btn-success" onClick={() => navigate("/customer/Shipping")}> 
                 <FaCreditCard className="me-2" /> Proceed to Pay
               </button>
               <button className="btn btn-danger" onClick={clearCart}>

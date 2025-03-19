@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route   } from "react-router-dom";
 import Add from "./admin/Add";
 import List from "./admin/List";
 import RestaurantMenu from "./customer/List";
@@ -11,6 +11,7 @@ import Footer from "./customer/Footer";
 import MenuDetail from "./customer/MenuDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./customer/Login";
+
 function App() {
   return (
     <Router>
@@ -18,15 +19,16 @@ function App() {
         <Header />  
         <main className="flex-grow-1">
           <Routes>
-            <Route path="/" element={<RestaurantMenu />} />
-            <Route path="/menu-details/:id" element={<MenuDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/Login" element={<Login />} />
-
-            <Route path="/add" element={<Add />} />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/list" element={<List />} />
-            <Route path="/orderSuccess" element={<OrderSuccess />} />
+            {/* Customer Routes */}
+            <Route path="/customer/shipping" element={<Shipping />} />
+            <Route path="/customer/orderSuccess" element={<OrderSuccess />} />
+            <Route path="/customer/list" element={<RestaurantMenu />} />
+            <Route path="/customer/menu-details/:id" element={<MenuDetail />} />
+            <Route path="/customer/cart" element={<Cart />} />
+            <Route path="/" element={<Login />} />
+            {/* Admin Routes */}
+            <Route path="/admin/add" element={<Add />} />
+            <Route path="/admin/list" element={<List />} />
           </Routes>
         </main>
         <Footer />

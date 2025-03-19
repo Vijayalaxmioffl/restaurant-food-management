@@ -72,7 +72,7 @@ const List = () => {
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th>Category</th> {/* Added category header */}
+                  <th>Category</th> 
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -137,29 +137,30 @@ const List = () => {
                             </select>
                           </td>
                           <td>
-                            <button className="btn btn-success me-2" onClick={saveEditedItem}>
-                              <FaSave /> Save
+                          <div className="d-flex align-items-center gap-1">
+                            <button className="btn btn-success btn-sm" onClick={saveEditedItem}>
+                              <FaSave /> 
                             </button>
-                            <button className="btn btn-danger" onClick={() => deleteMenuItem(item.id)}>
-                              <FaTrash /> Delete
+                            <button className="btn btn-danger btn-sm" onClick={() => deleteMenuItem(item.id)}>
+                              <FaTrash />
                             </button>
+                          </div>
                           </td>
                         </>
                       ) : (
                         <>
                           <td>{item.name}</td>
                           <td>{item.description}</td>
-                          {/* <td>₹{item.price.toFixed(2)}</td> */}
-                          {/* <td>₹{Number(item.price).toFixed(2)}</td> */}
+                          
                           <td>₹{(parseFloat(item.price) || 0).toFixed(2)}</td>
-                          <td>{item.category || "Uncategorized"}</td> {/* Display category */}
+                          <td>{item.category || "Uncategorized"}</td> 
                           <td>
-                            <button className="btn btn-warning me-2" onClick={() => startEditing(item)}>
-                              <FaEdit /> Edit
-                            </button>
-                            <button className="btn btn-danger" onClick={() => deleteMenuItem(item.id)}>
-                              <FaTrash /> Delete
-                            </button>
+                          <div className="d-flex align-items-center gap-2">
+                            <button className="btn btn-warning btn-sm" onClick={() => startEditing(item)}>
+                              <FaEdit />  </button>
+                            <button className="btn btn-danger btn-sm" onClick={() => deleteMenuItem(item.id)}>
+                              <FaTrash /> </button>
+                          </div>
                           </td>
                         </>
                       )}
